@@ -21,9 +21,9 @@ RESUME_FILE = "assets/resume.pdf"  # shows the "Download Resume" button
 
 # Usernames only (no @ and no link). Leave "" to hide an icon.
 SOCIALS = {
-    "facebook": "",
-    "instagram": "",
-    "tiktok": "",
+    "facebook": "sabanpan2004",
+    "instagram": "sabanpansteve",
+    "tiktok": "sjsab2004",
 }
 
 # Education & certificates: title (white) and detail (amber).

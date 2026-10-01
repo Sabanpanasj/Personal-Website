@@ -69,6 +69,9 @@ input,textarea{font:inherit;color:#fff;background:#111;border:1.5px solid #333;b
 input:focus,textarea:focus{border-color:var(--accent);outline:none}
 textarea{min-height:8rem;resize:vertical}
 .hp{position:absolute;left:-9999px}
+.form-status{margin:0;min-height:1.5em;font-weight:500}
+.form-status.ok{color:#22e06b}
+.form-status.err{color:#ff6b6b}
 .socials{display:flex;gap:.8rem;margin-top:2.2rem}
 .socials a{width:2.6rem;height:2.6rem;border-radius:50%;background:var(--accent);color:#000;display:grid;place-items:center;transition:transform .2s}
 .socials a:hover{transform:scale(1.1)}
@@ -149,6 +152,7 @@ nav a.on{background:#fff;color:#000}
     <label>Your email <input type="email" name="email" required autocomplete="email"></label>
     <label>Message <textarea name="message" required></textarea></label>
     <button class="btn" type="submit">Send message</button>
+    <p class="form-status" role="status" aria-live="polite"></p>
   </form>
   <div class="socials"></div>
   <footer>&copy; Steve Jesus P. Sabanpan. All rights reserved.</footer>
@@ -161,6 +165,25 @@ const obs=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){
   document.body.dataset.sec=en.target.id;
   links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+en.target.id));}});},{threshold:.5});
 document.querySelectorAll('section').forEach(s=>obs.observe(s));
+
+const form=document.querySelector('form[name="contact"]');
+if(form){
+  const status=form.querySelector('.form-status');
+  const btn=form.querySelector('button[type="submit"]');
+  form.addEventListener('submit',async ev=>{
+    ev.preventDefault();
+    btn.disabled=true;status.className='form-status';status.textContent='Sending...';
+    try{
+      const res=await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body:new URLSearchParams(new FormData(form)).toString()});
+      if(!res.ok) throw new Error(res.status);
+      form.reset();status.className='form-status ok';status.textContent='Message sent. Thank you! I will reply to your email soon.';
+    }catch(err){
+      status.className='form-status err';status.textContent='Sorry, the message could not be sent. Please try again or use the social buttons.';
+    }
+    btn.disabled=false;
+  });
+}
 </script>
 </body>
 </html>

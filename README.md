@@ -28,6 +28,9 @@ To keep the test private to your computer only, run `python serve.py --local-onl
 The site adjusts to phones, tablets, laptops and large screens. On small screens the menu shows icons only, and the active section shows its name.
 
 ## 3. Deploy on Netlify
+
+**Important:** upload the whole project, not just `index.html`. If you drag and drop, drag the whole `dist` folder (it holds `index.html`, `thanks.html` and the `assets` folder with your photo). If you use GitHub, upload every file in this folder, including `netlify.toml`.
+
 1. Upload this folder to a GitHub repository.
 2. In Netlify: Add new site > Import an existing project > choose the repository.
 3. Netlify reads `netlify.toml` (build command `python build.py`, publish folder `dist`). Click Deploy.

@@ -49,11 +49,12 @@ h1{font:700 clamp(3rem,9vw,5.6rem)/1 var(--font);margin:0 0 1.6rem;letter-spacin
 .tl a{display:inline-flex;gap:.3rem;align-items:center;width:max-content;margin-top:.15rem;font-size:.9rem;color:#fff;text-decoration:underline;text-underline-offset:3px}
 .tl a:hover{color:var(--accent)}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.3rem 1.2rem;max-width:44rem}
+.grid.one{grid-template-columns:minmax(0,30rem)}
 .card{display:block;text-decoration:none}
 .card .img{aspect-ratio:4/3;border-radius:14px;position:relative;overflow:hidden;display:grid;place-items:center;font-weight:700;font-size:1.3rem;color:rgba(255,255,255,.85);transition:transform .25s}
 .card:hover .img{transform:translateY(-4px)}
-.card .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.card .img svg{position:absolute;top:.7rem;right:.7rem;color:#fff}
+.card .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top left}
+.card .img svg{position:absolute;top:.6rem;right:.6rem;width:1.9rem;height:1.9rem;padding:.35rem;border-radius:50%;background:rgba(0,0,0,.65);color:#fff}
 .card b{display:block;margin-top:.6rem;font-weight:600}
 .card small{color:var(--muted)}
 ul.roles{list-style:none;padding:0;margin:0 0 2rem;display:grid;gap:.3rem}
@@ -123,7 +124,7 @@ nav a.on{background:#fff;color:#000}
 <div class="bg" aria-hidden="true"><img src="assets/profile.jpg" alt=""></div>
 <main>
 <section id="home">
-  <div class="top"><span class="avail"><i></i>Available for work</span></div>
+  <div class="top"><span class="avail"><i></i>Available for work</span><a class="btn" href="assets/resume.pdf" download>Download Resume</a></div>
   <p class="role">Frontend Developer</p>
   <h1>Steve Jesus P. Sabanpan</h1>
   <div class="info">
@@ -134,10 +135,10 @@ nav a.on{background:#fff;color:#000}
   <h2>About</h2>
   <p class="p">I am a frontend developer who enjoys building clean, responsive websites. I am currently studying at the University of Science and Technology of Southern Philippines and looking for opportunities to grow my skills.</p>
   <h3>Education &amp; Certificates</h3>
-  <div class="tl"><div><b>Primary School</b><small>Graduated: 2017</small></div><div><b>Junior High School</b><small>Graduated: 2021</small></div><div><b>Senior High School</b><small>Graduated: 2023</small></div><div><b>Capitol University</b><small>Enrolled: 2023 - 2025</small></div><div><b>CS50x Certificate, Harvard University</b><small>Certified: 2025</small><a href="https://cs50.harvard.edu/certificates/7bbb3703-3738-48cf-a002-48996f0b662e" target="_blank" rel="noopener">View certificate <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div><div><b>University of Science and Technology of Southern Philippines (Balubal Campus)</b><small>Currently studying: 2026 - Present</small></div></div>
+  <div class="tl"><div><b>Primary School</b><small>Graduated: 2017</small></div><div><b>Junior High School</b><small>Graduated: 2021</small></div><div><b>Senior High School</b><small>Graduated: 2023</small></div><div><b>Capitol University</b><small>Enrolled: 2023 - 2026</small></div><div><b>CS50x Certificate, Harvard University</b><small>Certified: 2025</small><a href="https://cs50.harvard.edu/certificates/7bbb3703-3738-48cf-a002-48996f0b662e" target="_blank" rel="noopener">View certificate <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div><div><b>University of Science and Technology of Southern Philippines (Balubal Campus)</b><small>Currently studying: 2026 - Present</small></div></div>
   
 </section>
-
+<section id="projects"><h2>Projects</h2><div class="grid one"><a class="card" href="https://sabanpanasj.github.io/Inventory-Management/" target="_blank" rel="noopener"><div class="img" style="background:linear-gradient(135deg,#1c1c1f,#3a3a40)"><img src="assets/inventory-manager.jpg" alt="" loading="lazy"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></div><b>Inventory Manager</b><small>Desktop app to track products, stock and sales with live charts. Works offline.</small></a></div></section>
 <section id="skills">
   <h2>Skills &amp; Tools</h2>
   <ul class="roles"><li>Frontend Web Developer</li><li>Responsive Web Designer</li></ul>
@@ -145,20 +146,12 @@ nav a.on{background:#fff;color:#000}
 </section>
 <section id="contact">
   <h2>Send me a message</h2>
-  <form name="contact" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field">
-    <input type="hidden" name="form-name" value="contact">
-    <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
-    <label>Your name <input type="text" name="name" required autocomplete="name"></label>
-    <label>Your email <input type="email" name="email" required autocomplete="email"></label>
-    <label>Message <textarea name="message" required></textarea></label>
-    <button class="btn" type="submit">Send message</button>
-    <p class="form-status" role="status" aria-live="polite"></p>
-  </form>
+  <form name="contact" data-mode="netlify" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field"><input type="hidden" name="form-name" value="contact"><p class="hp"><label>Leave this empty <input name="bot-field"></label></p><label>Your name <input type="text" name="name" required autocomplete="name"></label><label>Your email <input type="email" name="email" required autocomplete="email"></label><label>Message <textarea name="message" required></textarea></label><button class="btn" type="submit">Send message</button><p class="form-status" role="status" aria-live="polite"></p></form>
   <div class="socials"></div>
   <footer>&copy; Steve Jesus P. Sabanpan. All rights reserved.</footer>
 </section>
 </main>
-<nav aria-label="Sections"><a href="#home" class=on><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span>Home</span></a><a href="#about"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>About</span></a><a href="#skills"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18"/></svg><span>Skills</span></a><a href="#contact"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Contact</span></a></nav>
+<nav aria-label="Sections"><a href="#home" class=on><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span>Home</span></a><a href="#about"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>About</span></a><a href="#projects"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg><span>Projects</span></a><a href="#skills"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18"/></svg><span>Skills</span></a><a href="#contact"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Contact</span></a></nav>
 <script>
 const links=[...document.querySelectorAll('nav a')];
 const obs=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){
@@ -174,12 +167,20 @@ if(form){
     ev.preventDefault();
     btn.disabled=true;status.className='form-status';status.textContent='Sending...';
     try{
-      const res=await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
-        body:new URLSearchParams(new FormData(form)).toString()});
-      if(!res.ok) throw new Error(res.status);
+      if(form.dataset.mode==='web3'){
+        const res=await fetch('https://api.web3forms.com/submit',{method:'POST',
+          headers:{'Content-Type':'application/json',Accept:'application/json'},
+          body:JSON.stringify(Object.fromEntries(new FormData(form)))});
+        const data=await res.json().catch(()=>({}));
+        if(!res.ok||!data.success) throw new Error(data.message||('HTTP '+res.status));
+      }else{
+        const res=await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+          body:new URLSearchParams(new FormData(form)).toString()});
+        if(!res.ok) throw new Error('HTTP '+res.status);
+      }
       form.reset();status.className='form-status ok';status.textContent='Message sent. Thank you! I will reply to your email soon.';
     }catch(err){
-      status.className='form-status err';status.textContent='Sorry, the message could not be sent. Please try again or use the social buttons.';
+      console.error('Contact form error:',err);status.className='form-status err';status.textContent='Sorry, the message could not be sent ('+(err&&err.message?err.message:'network error')+'). Please try again or use the social buttons.';
     }
     btn.disabled=false;
   });

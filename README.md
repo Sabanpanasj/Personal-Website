@@ -5,7 +5,10 @@ Dark theme, amber accents, a photo behind your name, and a floating bottom menu 
 ## 1. Add your details
 - Open `resume_data.py` and replace the placeholder text (name, email, phone, school, skills, projects, social usernames).
 - Your photo is in `assets/profile.jpg`. To use a different photo, replace that file (or change `PHOTO` in `resume_data.py`). A PNG with a transparent background also works well. With no photo you get a soft blue glow.
-- Put your resume in `assets/resume.pdf` to show the "Download Resume" button.
+- The "Download Resume" button only appears when the file `assets/resume.pdf` exists.
+  - Already have a resume? Save it as `assets/resume.pdf`.
+  - No resume yet? Run `pip install reportlab` once, then `python make_resume.py`. It creates `assets/resume.pdf` from your details in `resume_data.py`. Run it again whenever you change your details.
+  - After either step, run `python build.py` again (or `python serve.py`).
 - Project pictures (optional): save them in `assets/` and set `"image": "assets/project1.png"` in `resume_data.py`.
 
 ## 2. Test on your computer
@@ -39,6 +42,15 @@ The site adjusts to phones, tablets, laptops and large screens. On small screens
 1. Netlify > your site > Forms. After the first deploy you will see a form called `contact`.
 2. Site configuration > Notifications > Form submission notifications > Add notification > Email notification.
 3. Enter your personal email, choose the `contact` form, and save. Then send yourself a test message.
+
+## Option B: free Web3Forms (if Netlify Forms does not work for you)
+1. Go to https://web3forms.com, type your personal email, and submit. Your access key is sent to that email.
+2. Open `resume_data.py` and paste the key between the quotes: `WEB3FORMS_KEY = "your-key-here"`
+3. Run `python serve.py`, send a test message, and check your inbox (and spam folder).
+4. Redeploy the `dist` folder on Netlify.
+
+With a key set, messages go through Web3Forms instead of Netlify Forms. Leave the key empty to use Netlify Forms.
+The key is visible in the page source. That is normal for this service; it only lets people send messages to your inbox.
 
 ## Facebook, Instagram and TikTok
 Websites cannot send messages into these apps automatically, so the round icons link to them:

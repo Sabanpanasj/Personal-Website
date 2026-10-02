@@ -84,11 +84,12 @@ h1{font:700 clamp(3rem,9vw,5.6rem)/1 var(--font);margin:0 0 1.6rem;letter-spacin
 .tl a{display:inline-flex;gap:.3rem;align-items:center;width:max-content;margin-top:.15rem;font-size:.9rem;color:#fff;text-decoration:underline;text-underline-offset:3px}
 .tl a:hover{color:var(--accent)}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.3rem 1.2rem;max-width:44rem}
+.grid.one{grid-template-columns:minmax(0,30rem)}
 .card{display:block;text-decoration:none}
 .card .img{aspect-ratio:4/3;border-radius:14px;position:relative;overflow:hidden;display:grid;place-items:center;font-weight:700;font-size:1.3rem;color:rgba(255,255,255,.85);transition:transform .25s}
 .card:hover .img{transform:translateY(-4px)}
-.card .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.card .img svg{position:absolute;top:.7rem;right:.7rem;color:#fff}
+.card .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top left}
+.card .img svg{position:absolute;top:.6rem;right:.6rem;width:1.9rem;height:1.9rem;padding:.35rem;border-radius:50%;background:rgba(0,0,0,.65);color:#fff}
 .card b{display:block;margin-top:.6rem;font-weight:600}
 .card small{color:var(--muted)}
 ul.roles{list-style:none;padding:0;margin:0 0 2rem;display:grid;gap:.3rem}
@@ -169,12 +170,20 @@ if(form){
     ev.preventDefault();
     btn.disabled=true;status.className='form-status';status.textContent='Sending...';
     try{
-      const res=await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
-        body:new URLSearchParams(new FormData(form)).toString()});
-      if(!res.ok) throw new Error(res.status);
+      if(form.dataset.mode==='web3'){
+        const res=await fetch('https://api.web3forms.com/submit',{method:'POST',
+          headers:{'Content-Type':'application/json',Accept:'application/json'},
+          body:JSON.stringify(Object.fromEntries(new FormData(form)))});
+        const data=await res.json().catch(()=>({}));
+        if(!res.ok||!data.success) throw new Error(data.message||('HTTP '+res.status));
+      }else{
+        const res=await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+          body:new URLSearchParams(new FormData(form)).toString()});
+        if(!res.ok) throw new Error('HTTP '+res.status);
+      }
       form.reset();status.className='form-status ok';status.textContent='Message sent. Thank you! I will reply to your email soon.';
     }catch(err){
-      status.className='form-status err';status.textContent='Sorry, the message could not be sent. Please try again or use the social buttons.';
+      console.error('Contact form error:',err);status.className='form-status err';status.textContent='Sorry, the message could not be sent ('+(err&&err.message?err.message:'network error')+'). Please try again or use the social buttons.';
     }
     btn.disabled=false;
   });
@@ -286,6 +295,33 @@ def socials():
     return "".join(out)
 
 
+def form_html():
+    fields = (
+        '<label>Your name <input type="text" name="name" required autocomplete="name"></label>'
+        '<label>Your email <input type="email" name="email" required autocomplete="email"></label>'
+        '<label>Message <textarea name="message" required></textarea></label>'
+        '<button class="btn" type="submit">Send message</button>'
+        '<p class="form-status" role="status" aria-live="polite"></p>'
+    )
+    key = getattr(d, "WEB3FORMS_KEY", "").strip()
+    if key:  # emails you through Web3Forms
+        return (
+            '<form name="contact" data-mode="web3" method="POST" action="https://api.web3forms.com/submit">'
+            f'<input type="hidden" name="access_key" value="{e(key)}">'
+            f'<input type="hidden" name="subject" value="New message from {e(d.NAME)} resume website">'
+            '<input type="hidden" name="from_name" value="Resume website">'
+            '<input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
+            + fields + '</form>'
+        )
+    return (  # Netlify Forms
+        '<form name="contact" data-mode="netlify" method="POST" action="/thanks.html" '
+        'data-netlify="true" netlify-honeypot="bot-field">'
+        '<input type="hidden" name="form-name" value="contact">'
+        '<p class="hp"><label>Leave this empty <input name="bot-field"></label></p>'
+        + fields + '</form>'
+    )
+
+
 def index_html():
     has_photo = (ROOT / d.PHOTO).exists()
     has_resume = (ROOT / d.RESUME_FILE).exists()
@@ -298,7 +334,7 @@ def index_html():
         if val
     )
     projects_section = (
-        f'<section id="projects"><h2>Projects</h2><div class="grid">{projects()}</div></section>'
+        f'<section id="projects"><h2>Projects</h2><div class="grid{" one" if len(d.PROJECTS) == 1 else ""}">{projects()}</div></section>'
         if d.PROJECTS else ""
     )
     exp = f"<h3>Experience</h3>{timeline(d.EXPERIENCE)}" if d.EXPERIENCE else ""
@@ -338,15 +374,7 @@ def index_html():
 </section>
 <section id="contact">
   <h2>Send me a message</h2>
-  <form name="contact" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field">
-    <input type="hidden" name="form-name" value="contact">
-    <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
-    <label>Your name <input type="text" name="name" required autocomplete="name"></label>
-    <label>Your email <input type="email" name="email" required autocomplete="email"></label>
-    <label>Message <textarea name="message" required></textarea></label>
-    <button class="btn" type="submit">Send message</button>
-    <p class="form-status" role="status" aria-live="polite"></p>
-  </form>
+  {form_html()}
   <div class="socials">{socials()}</div>
   <footer>&copy; {e(d.NAME)}. All rights reserved.</footer>
 </section>

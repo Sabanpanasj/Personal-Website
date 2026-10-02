@@ -49,11 +49,12 @@ h1{font:700 clamp(3rem,9vw,5.6rem)/1 var(--font);margin:0 0 1.6rem;letter-spacin
 .tl a{display:inline-flex;gap:.3rem;align-items:center;width:max-content;margin-top:.15rem;font-size:.9rem;color:#fff;text-decoration:underline;text-underline-offset:3px}
 .tl a:hover{color:var(--accent)}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.3rem 1.2rem;max-width:44rem}
+.grid.one{grid-template-columns:minmax(0,30rem)}
 .card{display:block;text-decoration:none}
 .card .img{aspect-ratio:4/3;border-radius:14px;position:relative;overflow:hidden;display:grid;place-items:center;font-weight:700;font-size:1.3rem;color:rgba(255,255,255,.85);transition:transform .25s}
 .card:hover .img{transform:translateY(-4px)}
-.card .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.card .img svg{position:absolute;top:.7rem;right:.7rem;color:#fff}
+.card .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top left}
+.card .img svg{position:absolute;top:.6rem;right:.6rem;width:1.9rem;height:1.9rem;padding:.35rem;border-radius:50%;background:rgba(0,0,0,.65);color:#fff}
 .card b{display:block;margin-top:.6rem;font-weight:600}
 .card small{color:var(--muted)}
 ul.roles{list-style:none;padding:0;margin:0 0 2rem;display:grid;gap:.3rem}

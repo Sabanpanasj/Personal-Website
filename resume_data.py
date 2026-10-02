@@ -4,10 +4,10 @@ NAME = "Steve Jesus P. Sabanpan"
 ROLE = "Frontend Developer"     # shows in amber above your name
 AVAILABLE = True                # shows the green "Available for work" badge
 
-EMAIL = "sjsabanpan@gmail.com"
+EMAIL = "Sjsabanpan@gmail.com"
 PHONE = "09917731731"
 SCHOOL = "USTP - Balubal Campus"
-LOCATION = "Libona,Bukidnon,Philippines"                   # add your city and country, or leave empty to hide it
+LOCATION = ""                   # add your city and country, or leave empty to hide it
 
 SUMMARY = (
     "I am a frontend developer who enjoys building clean, responsive websites. "
@@ -15,15 +15,20 @@ SUMMARY = (
     "Southern Philippines and looking for opportunities to grow my skills."
 )
 
+# Contact form email.
+# "" = use Netlify Forms (default). To use the free Web3Forms service instead, get your
+# access key at https://web3forms.com (it is emailed to you) and paste it between the quotes.
+WEB3FORMS_KEY = ""
+
 # Put these files in the assets/ folder (both optional):
 PHOTO = "assets/profile.jpg"       # your photo (JPG or PNG; a transparent PNG cut-out looks best)
 RESUME_FILE = "assets/resume.pdf"  # shows the "Download Resume" button
 
 # Usernames only (no @ and no link). Leave "" to hide an icon.
 SOCIALS = {
-    "facebook": "sabanpan2004",
-    "instagram": "sabanpansteve",
-    "tiktok": "sjsab2004",
+    "facebook": "",
+    "instagram": "",
+    "tiktok": "",
 }
 
 # Education & certificates: title (white) and detail (amber).
@@ -32,10 +37,10 @@ EDUCATION = [
     {"title": "Primary School", "detail": "Graduated: 2017"},
     {"title": "Junior High School", "detail": "Graduated: 2021"},
     {"title": "Senior High School", "detail": "Graduated: 2023"},
-    {"title": "Capitol University", "detail": "Enrolled: 2023 - 2025"},
+    {"title": "Capitol University", "detail": "Enrolled: 2023 - 2026"},
     {
         "title": "CS50x Certificate, Harvard University",
-        "detail": "Certified: 2026",
+        "detail": "Certified: 2025",
         "link": "https://cs50.harvard.edu/certificates/7bbb3703-3738-48cf-a002-48996f0b662e",
         "link_text": "View certificate",
     },

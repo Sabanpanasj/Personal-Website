@@ -67,4 +67,11 @@ TOOLS = [
 
 # image is optional (e.g. "assets/project1.png"); link is optional.
 # Leave as [] to hide the Projects section and its menu button.
-PROJECTS = []
+PROJECTS = [
+    {
+        "title": "Inventory Manager",
+        "desc": "Desktop app to track products, stock and sales with live charts. Works offline.",
+        "image": "assets/inventory-manager.jpg",
+        "link": "https://sabanpanasj.github.io/Inventory-Management/",
+    },
+]

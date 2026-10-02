@@ -32,7 +32,7 @@ EDUCATION = [
     {"title": "Primary School", "detail": "Graduated: 2017"},
     {"title": "Junior High School", "detail": "Graduated: 2021"},
     {"title": "Senior High School", "detail": "Graduated: 2023"},
-    {"title": "Capitol University", "detail": "Enrolled: 2023 - 2026"},
+    {"title": "Capitol University", "detail": "Enrolled: 2023 - 2025"},
     {
         "title": "CS50x Certificate, Harvard University",
         "detail": "Certified: 2025",

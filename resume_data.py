@@ -4,10 +4,10 @@ NAME = "Steve Jesus P. Sabanpan"
 ROLE = "Frontend Developer"     # shows in amber above your name
 AVAILABLE = True                # shows the green "Available for work" badge
 
-EMAIL = "Sjsabanpan@gmail.com"
+EMAIL = "sjsabanpan@gmail.com"
 PHONE = "09917731731"
 SCHOOL = "USTP - Balubal Campus"
-LOCATION = ""                   # add your city and country, or leave empty to hide it
+LOCATION = "Libona,Bukidnon,Philippines"                   # add your city and country, or leave empty to hide it
 
 SUMMARY = (
     "I am a frontend developer who enjoys building clean, responsive websites. "

@@ -38,7 +38,32 @@ The site adjusts to phones, tablets, laptops and large screens. On small screens
 2. In Netlify: Add new site > Import an existing project > choose the repository.
 3. Netlify reads `netlify.toml` (build command `python build.py`, publish folder `dist`). Click Deploy.
 
-## 4. Get messages in your email
+## 3b. Deploy on Cloudflare Pages instead of Netlify
+1. Run `python build.py` so the `dist` folder is up to date.
+2. Sign in at https://dash.cloudflare.com and create a Pages project with **Direct Upload** (drag and drop).
+3. Name the project and drag the whole `dist` folder (or a zip of it) into the upload box, then click Deploy.
+4. Your site will be at `your-project-name.pages.dev`.
+5. `netlify.toml` is not used on Cloudflare, and **Netlify Forms do not work there**. Use the Web3Forms key in `resume_data.py` (see Option B below) so the contact form emails you.
+6. To update the site later, run `python build.py` again and upload the new `dist` folder to the same project.
+
+## 3c. Put it on GitHub and deploy automatically
+1. Create a new repository on GitHub (for example `resume-website`).
+2. Upload the CONTENTS of this folder (README.md, build.py, resume_data.py, `dist`, `assets`, and the other files) so they sit at the top level of the repository. Or use the terminal:
+```
+git init
+git add .
+git commit -m "My resume website"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/resume-website.git
+git push -u origin main
+```
+3. In Cloudflare: Workers & Pages > Create application > Pages > Connect to Git. Choose your repository.
+4. Framework preset: None. Build command: leave blank. Build output directory: `dist`. Click Save and Deploy.
+5. To update the site later: edit `resume_data.py`, run `python build.py`, then commit and push. Cloudflare redeploys by itself.
+
+The `dist` folder must be in the repository, because Cloudflare uploads what is inside it.
+
+## 4. Get messages in your email (Netlify only)
 1. Netlify > your site > Forms. After the first deploy you will see a form called `contact`.
 2. Site configuration > Notifications > Form submission notifications > Add notification > Email notification.
 3. Enter your personal email, choose the `contact` form, and save. Then send yourself a test message.

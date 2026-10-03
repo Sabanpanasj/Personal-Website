@@ -7,7 +7,7 @@ Dark theme, amber accents, a photo behind your name, and a floating bottom menu 
 - Your photo is in `assets/profile.jpg`. To use a different photo, replace that file (or change `PHOTO` in `resume_data.py`). A PNG with a transparent background also works well. With no photo you get a soft blue glow.
 - The "Download Resume" button only appears when the file `assets/resume.pdf` exists.
   - Already have a resume? Save it as `assets/resume.pdf`.
-  - No resume yet? Run `pip install reportlab` once, then `python make_resume.py`. It creates `assets/resume.pdf` from your details in `resume_data.py`. Run it again whenever you change your details.
+  - No resume yet? Run `pip install -r requirements.txt` once, then `python make_resume.py`. It creates `assets/resume.pdf` from your details in `resume_data.py`. Run it again whenever you change your details.
   - After either step, run `python build.py` again (or `python serve.py`).
 - Project pictures (optional): save them in `assets/` and set `"image": "assets/project1.png"` in `resume_data.py`.
 
@@ -51,6 +51,11 @@ The site adjusts to phones, tablets, laptops and large screens. On small screens
 
 With a key set, messages go through Web3Forms instead of Netlify Forms. Leave the key empty to use Netlify Forms.
 The key is visible in the page source. That is normal for this service; it only lets people send messages to your inbox.
+
+## Popup notifications
+The site shows small popup notifications (like Alertify) at the top right: green when your message is sent, red if it fails, blue when the resume starts downloading. They close by themselves after a few seconds, or when clicked.
+To try one, open your site, press F12, click Console, and type: `notify("Hello!", "success")`
+Types: `success`, `error`, `warning`, `message`. A third number sets the seconds, for example `notify("Hi", "warning", 10)`.
 
 ## Facebook, Instagram and TikTok
 Websites cannot send messages into these apps automatically, so the round icons link to them:

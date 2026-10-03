@@ -7,7 +7,7 @@ AVAILABLE = True                # shows the green "Available for work" badge
 EMAIL = "Sjsabanpan@gmail.com"
 PHONE = "09917731731"
 SCHOOL = "USTP - Balubal Campus"
-LOCATION = "Libona, Bukidnon, Philippines"                   # add your city and country, or leave empty to hide it
+LOCATION = "Libona, Bukidnon, Philippines"
 
 SUMMARY = (
     "I am a frontend developer who enjoys building clean, responsive websites. "
@@ -26,7 +26,7 @@ RESUME_FILE = "assets/resume.pdf"  # shows the "Download Resume" button
 
 # Usernames only (no @ and no link). Leave "" to hide an icon.
 SOCIALS = {
-     "facebook": "sabanpan2004",
+    "facebook": "sabanpan2004",
     "instagram": "sabanpansteve",
     "tiktok": "sjsab2004",
 }
@@ -37,10 +37,10 @@ EDUCATION = [
     {"title": "Primary School", "detail": "Graduated: 2017"},
     {"title": "Junior High School", "detail": "Graduated: 2021"},
     {"title": "Senior High School", "detail": "Graduated: 2023"},
-    {"title": "Capitol University", "detail": "Enrolled: 2023 - 2025"},
+    {"title": "Capitol University", "detail": "Enrolled: 2023 - 2026"},
     {
         "title": "CS50x Certificate, Harvard University",
-        "detail": "Certified: 2026",
+        "detail": "Certified: 2025",
         "link": "https://cs50.harvard.edu/certificates/7bbb3703-3738-48cf-a002-48996f0b662e",
         "link_text": "View certificate",
     },

@@ -47,6 +47,18 @@ contact = [v for v in (d.EMAIL, d.PHONE, d.LOCATION) if v]
 story.append(P(" &nbsp;|&nbsp; ".join(escape(c) for c in contact), small))
 if d.SCHOOL:
     story.append(P(escape(d.SCHOOL), small))
+PROFILE_URLS = {
+    "Facebook": "https://www.facebook.com/{u}",
+    "Instagram": "https://www.instagram.com/{u}/",
+    "TikTok": "https://www.tiktok.com/@{u}",
+}
+profile_links = [
+    link(url.format(u=d.SOCIALS[key.lower()].strip().lstrip("@")), key)
+    for key, url in PROFILE_URLS.items()
+    if d.SOCIALS.get(key.lower(), "").strip()
+]
+if profile_links:
+    story.append(P(" &nbsp;|&nbsp; ".join(profile_links), small))
 
 story += heading("About") + [P(escape(d.SUMMARY), body)]
 

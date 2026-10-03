@@ -108,6 +108,22 @@ textarea{min-height:8rem;resize:vertical}
 .form-status{margin:0;min-height:1.5em;font-weight:500}
 .form-status.ok{color:#22e06b}
 .form-status.err{color:#ff6b6b}
+#toasts{position:fixed;top:max(1rem,env(safe-area-inset-top));right:max(1rem,env(safe-area-inset-right));z-index:50;
+  display:grid;gap:.6rem;width:min(22rem,calc(100vw - 2rem));pointer-events:none}
+.toast{--c:#ffb300;pointer-events:auto;cursor:pointer;display:flex;gap:.7rem;align-items:flex-start;
+  background:#161616;border:1px solid #2e2e2e;border-left:4px solid var(--c);border-radius:10px;
+  padding:.8rem .9rem;box-shadow:0 8px 28px rgba(0,0,0,.55);color:#fff;font-size:.95rem;line-height:1.4;
+  animation:toast-in .35s ease both}
+.toast.out{animation:toast-out .3s ease both}
+.toast.success{--c:#22e06b}.toast.error{--c:#ff6b6b}.toast.warning{--c:#ffb300}.toast.message{--c:#6cb6ff}
+.toast svg{flex:none;margin-top:.05rem;color:var(--c)}
+.toast p{margin:0;flex:1}
+.toast button{flex:none;background:none;border:0;color:#aaa;font-size:1.3rem;line-height:1;padding:0 .2rem;cursor:pointer;
+  min-height:0;width:auto;display:block}
+.toast button:hover{color:#fff;background:none}
+@keyframes toast-in{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+@keyframes toast-out{to{opacity:0;transform:translateX(40px)}}
+
 .socials{display:flex;gap:.8rem;margin-top:2.2rem}
 .socials a{width:2.6rem;height:2.6rem;border-radius:50%;background:var(--accent);color:#000;display:grid;place-items:center;transition:transform .2s}
 .socials a:hover{transform:scale(1.1)}
@@ -162,6 +178,34 @@ const obs=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){
   links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+en.target.id));}});},{threshold:.5});
 document.querySelectorAll('section').forEach(s=>obs.observe(s));
 
+const toasts=document.getElementById('toasts');
+const TOAST_ICONS={
+  success:'<path d="M5 13l4 4L19 7"/>',
+  error:'<circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/>',
+  warning:'<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/>',
+  message:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/>'};
+/* notify("text", "success" | "error" | "warning" | "message", seconds) shows a popup notification */
+function notify(text,type,secs){
+  type=TOAST_ICONS[type]?type:'message';secs=secs===undefined?5:secs;
+  const t=document.createElement('div');
+  t.className='toast '+type;t.setAttribute('role',type==='error'?'alert':'status');
+  t.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+TOAST_ICONS[type]+'</svg>';
+  const p=document.createElement('p');p.textContent=text;
+  const x=document.createElement('button');x.type='button';x.setAttribute('aria-label','Close');x.innerHTML='&times;';
+  t.append(p,x);
+  while(toasts.children.length>=4) toasts.firstChild.remove();
+  toasts.append(t);
+  let timer;
+  const close=()=>{clearTimeout(timer);t.classList.add('out');setTimeout(()=>t.remove(),300);};
+  const start=()=>{if(secs>0) timer=setTimeout(close,secs*1000);};
+  t.addEventListener('click',close);
+  t.addEventListener('mouseenter',()=>clearTimeout(timer));
+  t.addEventListener('mouseleave',start);
+  start();
+}
+window.notify=notify;
+document.querySelectorAll('a[download]').forEach(a=>a.addEventListener('click',()=>notify('Downloading resume...','message',3)));
+
 const form=document.querySelector('form[name="contact"]');
 if(form){
   const status=form.querySelector('.form-status');
@@ -181,9 +225,9 @@ if(form){
           body:new URLSearchParams(new FormData(form)).toString()});
         if(!res.ok) throw new Error('HTTP '+res.status);
       }
-      form.reset();status.className='form-status ok';status.textContent='Message sent. Thank you! I will reply to your email soon.';
+      form.reset();status.textContent='';notify('Message sent! Thank you, I will reply to your email soon.','success');
     }catch(err){
-      console.error('Contact form error:',err);status.className='form-status err';status.textContent='Sorry, the message could not be sent ('+(err&&err.message?err.message:'network error')+'). Please try again or use the social buttons.';
+      console.error('Contact form error:',err);status.textContent='';notify('Sorry, the message could not be sent ('+(err&&err.message?err.message:'network error')+'). Please try again or use the social buttons.','error',8);
     }
     btn.disabled=false;
   });
@@ -379,6 +423,7 @@ def index_html():
   <footer>&copy; {e(d.NAME)}. All rights reserved.</footer>
 </section>
 </main>
+<div id="toasts" aria-live="polite"></div>
 <nav aria-label="Sections">{nav_html}</nav>
 <script>{JS}</script>
 </body>

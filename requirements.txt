@@ -1,0 +1,3 @@
+# Only needed for make_resume.py (creates assets/resume.pdf).
+# build.py and serve.py use only the Python standard library.
+reportlab>=4.0,<5

@@ -7,7 +7,7 @@ AVAILABLE = True                # shows the green "Available for work" badge
 EMAIL = "Sjsabanpan@gmail.com"
 PHONE = "09917731731"
 SCHOOL = "USTP - Balubal Campus"
-LOCATION = ""                   # add your city and country, or leave empty to hide it
+LOCATION = "Libona, Bukidnon, Philippines"                   # add your city and country, or leave empty to hide it
 
 SUMMARY = (
     "I am a frontend developer who enjoys building clean, responsive websites. "
@@ -18,7 +18,7 @@ SUMMARY = (
 # Contact form email.
 # "" = use Netlify Forms (default). To use the free Web3Forms service instead, get your
 # access key at https://web3forms.com (it is emailed to you) and paste it between the quotes.
-WEB3FORMS_KEY = ""
+WEB3FORMS_KEY = "51efe6d6-f636-45e1-87fc-cb44b86e027d"
 
 # Put these files in the assets/ folder (both optional):
 PHOTO = "assets/profile.jpg"       # your photo (JPG or PNG; a transparent PNG cut-out looks best)
@@ -26,9 +26,9 @@ RESUME_FILE = "assets/resume.pdf"  # shows the "Download Resume" button
 
 # Usernames only (no @ and no link). Leave "" to hide an icon.
 SOCIALS = {
-    "facebook": "",
-    "instagram": "",
-    "tiktok": "",
+     "facebook": "sabanpan2004",
+    "instagram": "sabanpansteve",
+    "tiktok": "sjsab2004",
 }
 
 # Education & certificates: title (white) and detail (amber).
